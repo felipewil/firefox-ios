@@ -46,18 +46,6 @@ open class TabToolbarHelper: NSObject {
     let ImageReload = UIImage.templateImageNamed("nav-refresh")
     let ImageStop = UIImage.templateImageNamed("nav-stop")
 
-    var loading: Bool = false {
-        didSet {
-            if loading {
-                toolbar.stopReloadButton.setImage(ImageStop, for: .normal)
-                toolbar.stopReloadButton.accessibilityLabel = NSLocalizedString("Stop", comment: "Accessibility Label for the tab toolbar Stop button")
-            } else {
-                toolbar.stopReloadButton.setImage(ImageReload, for: .normal)
-                toolbar.stopReloadButton.accessibilityLabel = NSLocalizedString("Reload", comment: "Accessibility Label for the tab toolbar Reload button")
-            }
-        }
-    }
-
     fileprivate func setTheme(forButtons buttons: [Themeable]) {
         buttons.forEach { $0.applyTheme() }
     }
@@ -77,12 +65,6 @@ open class TabToolbarHelper: NSObject {
         let longPressGestureForwardButton = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressForward))
         toolbar.forwardButton.addGestureRecognizer(longPressGestureForwardButton)
         toolbar.forwardButton.addTarget(self, action: #selector(didClickForward), for: .touchUpInside)
-
-        toolbar.stopReloadButton.setImage(UIImage.templateImageNamed("nav-refresh"), for: .normal)
-        toolbar.stopReloadButton.accessibilityLabel = NSLocalizedString("Reload", comment: "Accessibility Label for the tab toolbar Reload button")
-        let longPressGestureStopReloadButton = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressStopReload))
-        toolbar.stopReloadButton.addGestureRecognizer(longPressGestureStopReloadButton)
-        toolbar.stopReloadButton.addTarget(self, action: #selector(didClickStopReload), for: .touchUpInside)
 
         toolbar.tabsButton.addTarget(self, action: #selector(didClickTabs), for: .touchUpInside)
         let longPressGestureTabsButton = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTabs))
@@ -138,22 +120,8 @@ open class TabToolbarHelper: NSObject {
         toolbar.tabToolbarDelegate?.tabToolbarDidPressLibrary(toolbar, button: toolbar.menuButton)
     }
 
-    func didClickStopReload() {
-        if loading {
-            toolbar.tabToolbarDelegate?.tabToolbarDidPressStop(toolbar, button: toolbar.stopReloadButton)
-        } else {
-            toolbar.tabToolbarDelegate?.tabToolbarDidPressReload(toolbar, button: toolbar.stopReloadButton)
-        }
-    }
-
-    func didLongPressStopReload(_ recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == .began && !loading {
-            toolbar.tabToolbarDelegate?.tabToolbarDidLongPressReload(toolbar, button: toolbar.stopReloadButton)
-        }
-    }
-
     func updateReloadStatus(_ isLoading: Bool) {
-        loading = isLoading
+        // Do nothing
     }
 }
 
@@ -230,7 +198,7 @@ class TabToolbar: UIView {
     private let contentView = UIStackView()
 
     fileprivate override init(frame: CGRect) {
-        actionButtons = [backButton, forwardButton, stopReloadButton, tabsButton, menuButton]
+        actionButtons = [backButton, forwardButton, tabsButton, menuButton]
         super.init(frame: frame)
         setupAccessibility()
 
@@ -311,7 +279,7 @@ extension TabToolbar: TabToolbarProtocol {
     }
 
     func updatePageStatus(_ isWebPage: Bool) {
-        stopReloadButton.isEnabled = isWebPage
+        // Do nothing
     }
 
     func updateTabCount(_ count: Int, animated: Bool) {

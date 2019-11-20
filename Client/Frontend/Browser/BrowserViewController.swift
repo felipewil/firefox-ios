@@ -279,6 +279,7 @@ class BrowserViewController: UIViewController {
             navigationToolbar.updateBackStatus(webView.canGoBack)
             navigationToolbar.updateForwardStatus(webView.canGoForward)
             navigationToolbar.updateReloadStatus(tab.loading)
+            urlBar.updateReloadStatus(tab.loading)
         }
 
         libraryDrawerViewController?.view.snp.remakeConstraints(constraintsForLibraryDrawerView)
@@ -899,9 +900,7 @@ class BrowserViewController: UIViewController {
         case .loading:
             guard let loading = change?[.newKey] as? Bool else { break }
 
-            if tab === tabManager.selectedTab {
-                navigationToolbar.updateReloadStatus(loading)
-            }
+            urlBar.updateReloadStatus(loading)
         case .URL:
             // To prevent spoofing, only change the URL immediately if the new URL is on
             // the same origin as the current URL. Otherwise, do nothing and wait for
@@ -963,6 +962,7 @@ class BrowserViewController: UIViewController {
 
         let isPage = tab.url?.displayURL?.isWebPage() ?? false
         navigationToolbar.updatePageStatus(isPage)
+        urlBar.updatePageStatus(isPage)
     }
 
     // MARK: Opening New Tabs
@@ -1293,6 +1293,20 @@ extension BrowserViewController: URLBarDelegate {
 
     func urlBarDidPressStop(_ urlBar: URLBarView) {
         tabManager.selectedTab?.stop()
+    }
+    
+    func urlBarDidLongPressReload(_ urlBar: URLBarView, from button: UIButton) {
+        guard let tab = tabManager.selectedTab else {
+            return
+        }
+        let urlActions = self.getRefreshLongPressMenu(for: tab)
+        guard !urlActions.isEmpty else {
+            return
+        }
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+        let shouldSuppress = !topTabsVisible && UIDevice.current.userInterfaceIdiom == .pad
+        presentSheetWith(actions: [urlActions], on: self, from: button, suppressPopover: shouldSuppress)
     }
 
     func urlBarDidPressTabs(_ urlBar: URLBarView) {
@@ -1788,6 +1802,7 @@ extension BrowserViewController: TabManagerDelegate {
 
         updateFindInPageVisibility(visible: false, tab: previous)
 
+        urlBar.updateReloadStatus(selected?.loading ?? false)
         navigationToolbar.updateReloadStatus(selected?.loading ?? false)
         navigationToolbar.updateBackStatus(selected?.canGoBack ?? false)
         navigationToolbar.updateForwardStatus(selected?.canGoForward ?? false)

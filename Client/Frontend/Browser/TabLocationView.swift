@@ -12,6 +12,9 @@ private let log = Logger.browserLogger
 protocol TabLocationViewDelegate {
     func tabLocationViewDidTapLocation(_ tabLocationView: TabLocationView)
     func tabLocationViewDidLongPressLocation(_ tabLocationView: TabLocationView)
+    func tabLocationViewDidTapReload(_ tabLocationView: TabLocationView)
+    func tabLocationViewDidTapStop(_ tabLocationView: TabLocationView)
+    func tabLocationViewDidLongPressReload(_ tabLocationView: TabLocationView, from button: UIButton)
     func tabLocationViewDidTapReaderMode(_ tabLocationView: TabLocationView)
     func tabLocationViewDidTapShield(_ tabLocationView: TabLocationView)
     func tabLocationViewDidTapPageOptions(_ tabLocationView: TabLocationView, from button: UIButton)
@@ -39,6 +42,9 @@ class TabLocationView: UIView {
     var longPressRecognizer: UILongPressGestureRecognizer!
     var tapRecognizer: UITapGestureRecognizer!
     var contentView: UIStackView!
+    
+    let ImageReload = UIImage.templateImageNamed("nav-refresh")
+    let ImageStop = UIImage.templateImageNamed("nav-stop")
 
     fileprivate let menuBadge = BadgeWithBackdrop(imageName: "menuBadge", backdropCircleSize: 32)
 
@@ -55,6 +61,7 @@ class TabLocationView: UIView {
             }
             updateTextWithURL()
             pageOptionsButton.isHidden = (url == nil)
+            stopReloadButton.isHidden = (url == nil)
 
             trackingProtectionButton.isHidden = !["https", "http"].contains(url?.scheme ?? "")
             setNeedsUpdateConstraints()
@@ -119,6 +126,18 @@ class TabLocationView: UIView {
         lockImageView.accessibilityLabel = NSLocalizedString("Secure connection", comment: "Accessibility label for the lock icon, which is only present if the connection is secure")
         return lockImageView
     }()
+    
+    var loading: Bool = false {
+        didSet {
+            if loading {
+                stopReloadButton.setImage(ImageStop, for: .normal)
+                stopReloadButton.accessibilityLabel = NSLocalizedString("Stop", comment: "Accessibility Label for the Stop button")
+            } else {
+                stopReloadButton.setImage(ImageReload, for: .normal)
+                stopReloadButton.accessibilityLabel = NSLocalizedString("Reload", comment: "Accessibility Label for the Reload button")
+            }
+        }
+    }
 
     class TrackingProtectionButton: UIButton {
         // Disable showing the button if the feature is off in the prefs
@@ -172,6 +191,20 @@ class TabLocationView: UIView {
         pageOptionsButton.addGestureRecognizer(longPressGesture)
         return pageOptionsButton
     }()
+    
+    lazy var stopReloadButton: ToolbarButton = {
+        let stopReloadButton = ToolbarButton(frame: .zero)
+        stopReloadButton.setImage(ImageReload, for: .normal)
+        stopReloadButton.addTarget(self, action: #selector(didPressStopReloadButton), for: .touchUpInside)
+        stopReloadButton.isAccessibilityElement = true
+        stopReloadButton.isHidden = true
+        stopReloadButton.imageView?.contentMode = .left
+        stopReloadButton.accessibilityLabel = NSLocalizedString("Reload", comment: "Accessibility Label for the Reload button")
+        stopReloadButton.accessibilityIdentifier = "TabLocationView.reloadButton"
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressReload))
+        stopReloadButton.addGestureRecognizer(longPressGesture)
+        return stopReloadButton
+    }()
 
     private func makeSeparator() -> UIView {
         let line = UIView()
@@ -208,7 +241,7 @@ class TabLocationView: UIView {
 
         pageOptionsButton.separatorLine = separatorLineForPageOptions
 
-        let subviews = [trackingProtectionButton, separatorLineForTP, space10px, lockImageView, urlTextField, readerModeButton, separatorLineForPageOptions, pageOptionsButton]
+        let subviews = [trackingProtectionButton, separatorLineForTP, space10px, lockImageView, urlTextField, readerModeButton, stopReloadButton, separatorLineForPageOptions, pageOptionsButton]
         contentView = UIStackView(arrangedSubviews: subviews)
         contentView.distribution = .fill
         contentView.alignment = .center
@@ -230,7 +263,9 @@ class TabLocationView: UIView {
             make.width.equalTo(1)
             make.height.equalTo(26)
         }
-
+        stopReloadButton.snp.makeConstraints { make in
+            make.size.equalTo(TabLocationViewUX.ButtonSize)
+        }
         pageOptionsButton.snp.makeConstraints { make in
             make.size.equalTo(TabLocationViewUX.ButtonSize)
         }
@@ -258,7 +293,7 @@ class TabLocationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var _accessibilityElements = [urlTextField, readerModeButton, pageOptionsButton, trackingProtectionButton]
+    private lazy var _accessibilityElements = [urlTextField, readerModeButton, stopReloadButton, pageOptionsButton, trackingProtectionButton]
 
     override var accessibilityElements: [Any]? {
         get {
@@ -292,6 +327,20 @@ class TabLocationView: UIView {
     @objc func didLongPressPageOptionsButton(_ recognizer: UILongPressGestureRecognizer) {
         delegate?.tabLocationViewDidLongPressPageOptions(self)
     }
+    
+    @objc func didLongPressReload(_ recognizer: UILongPressGestureRecognizer) {
+        guard recognizer.state == .began && !loading else { return }
+        delegate?.tabLocationViewDidLongPressReload(self, from: stopReloadButton)
+    }
+    
+    @objc func didPressStopReloadButton(_ button: UIButton) {
+        if loading {
+            delegate?.tabLocationViewDidTapStop(self)
+        }
+        else {
+            delegate?.tabLocationViewDidTapReload(self)
+        }
+    }
 
     @objc func longPressLocation(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .began {
@@ -322,6 +371,15 @@ class TabLocationView: UIView {
             urlTextField.text = url?.absoluteString.replacingCharacters(in: range, with: "")
         }
     }
+    
+    func updateReloadStatus(_ isLoading: Bool) {
+        loading = isLoading
+    }
+    
+    func updatePageStatus(_ isWebPage: Bool) {
+        stopReloadButton.isEnabled = isWebPage
+    }
+    
 }
 
 extension TabLocationView: UIGestureRecognizerDelegate {
@@ -370,6 +428,10 @@ extension TabLocationView: Themeable {
         urlTextField.textColor = UIColor.theme.textField.textAndTint
         readerModeButton.selectedTintColor = UIColor.theme.urlbar.readerModeButtonSelected
         readerModeButton.unselectedTintColor = UIColor.theme.urlbar.readerModeButtonUnselected
+        
+        stopReloadButton.selectedTintColor = UIColor.theme.urlbar.pageOptionsSelected
+        stopReloadButton.unselectedTintColor = UIColor.theme.urlbar.pageOptionsUnselected
+        stopReloadButton.tintColor = pageOptionsButton.unselectedTintColor
         
         pageOptionsButton.selectedTintColor = UIColor.theme.urlbar.pageOptionsSelected
         pageOptionsButton.unselectedTintColor = UIColor.theme.urlbar.pageOptionsUnselected
