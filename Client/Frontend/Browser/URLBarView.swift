@@ -36,6 +36,7 @@ protocol URLBarDelegate: AnyObject {
     func urlBarDidLeaveOverlayMode(_ urlBar: URLBarView)
     func urlBarDidLongPressLocation(_ urlBar: URLBarView)
     func urlBarDidPressQRButton(_ urlBar: URLBarView)
+    func urlBarDidPressLumos(_ urlBar: URLBarView, from button: UIButton)
     func urlBarDidPressPageOptions(_ urlBar: URLBarView, from button: UIButton)
     func urlBarDidTapShield(_ urlBar: URLBarView)
     func urlBarLocationAccessibilityActions(_ urlBar: URLBarView) -> [UIAccessibilityCustomAction]?
@@ -158,6 +159,13 @@ class URLBarView: UIView {
     var bookmarkButton = ToolbarButton()
     var forwardButton = ToolbarButton()
     var stopReloadButton = ToolbarButton()
+    var lumosButton: ToolbarButton = {
+        let lumosButton = ToolbarButton()
+        lumosButton.setImage(UIImage(named: "lumosIcon"), for: .normal)
+        lumosButton.accessibilityIdentifier = "URLBarView.lumosButton"
+        lumosButton.addTarget(self, action: #selector(lumosButtonPressed), for: .touchUpInside)
+        return lumosButton
+    }()
 
     var backButton: ToolbarButton = {
         let backButton = ToolbarButton()
@@ -198,7 +206,7 @@ class URLBarView: UIView {
     fileprivate func commonInit() {
         locationContainer.addSubview(locationView)
 
-        [scrollToTopButton, line, tabsButton, progressBar, cancelButton, showQRScannerButton,
+        [scrollToTopButton, line, lumosButton, tabsButton, progressBar, cancelButton, showQRScannerButton,
          libraryButton, menuButton, forwardButton, backButton, locationContainer].forEach {
             addSubview($0)
         }
@@ -270,6 +278,12 @@ class URLBarView: UIView {
             make.centerY.equalTo(self)
             make.size.equalTo(URLBarViewUX.ButtonHeight)
         }
+        
+        lumosButton.snp.makeConstraints { make in
+            make.trailing.equalTo(self.tabsButton.snp.leading)
+            make.centerY.equalTo(self)
+            make.size.equalTo(URLBarViewUX.ButtonHeight)
+        }
 
         showQRScannerButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.safeArea.trailing)
@@ -307,7 +321,7 @@ class URLBarView: UIView {
                     if self.topTabsIsShowing {
                         make.trailing.equalTo(self.libraryButton.snp.leading).offset(-URLBarViewUX.Padding)
                     } else {
-                        make.trailing.equalTo(self.tabsButton.snp.leading).offset(-URLBarViewUX.Padding)
+                        make.trailing.equalTo(self.lumosButton.snp.leading).offset(-URLBarViewUX.Padding)
                     }
 
                 } else {
@@ -328,6 +342,10 @@ class URLBarView: UIView {
 
     @objc func showQRScanner() {
         self.delegate?.urlBarDidPressQRButton(self)
+    }
+    
+    @objc func lumosButtonPressed(_ button: UIButton) {
+        delegate?.urlBarDidPressLumos(self, from: button)
     }
 
     func createLocationTextField() {
@@ -472,6 +490,7 @@ class URLBarView: UIView {
         forwardButton.isHidden = !toolbarIsShowing
         backButton.isHidden = !toolbarIsShowing
         tabsButton.isHidden = !toolbarIsShowing || topTabsIsShowing
+        lumosButton.isHidden = !toolbarIsShowing || topTabsIsShowing
     }
 
     func transitionToOverlay(_ didCancel: Bool = false) {
@@ -484,6 +503,7 @@ class URLBarView: UIView {
         libraryButton.alpha = inOverlayMode ? 0 : 1
         forwardButton.alpha = inOverlayMode ? 0 : 1
         backButton.alpha = inOverlayMode ? 0 : 1
+        lumosButton.alpha = inOverlayMode ? 0 : 1
 
         let borderColor = inOverlayMode ? locationActiveBorderColor : locationBorderColor
         locationContainer.layer.borderColor = borderColor.cgColor
@@ -514,6 +534,7 @@ class URLBarView: UIView {
         forwardButton.isHidden = !toolbarIsShowing || inOverlayMode
         backButton.isHidden = !toolbarIsShowing || inOverlayMode
         tabsButton.isHidden = !toolbarIsShowing || inOverlayMode || topTabsIsShowing
+        lumosButton.isHidden = !toolbarIsShowing || inOverlayMode || topTabsIsShowing
 
         // badge isHidden is tied to private mode on/off, use alpha to hide in this case
         [privateModeBadge, appMenuBadge].forEach {
@@ -593,7 +614,7 @@ extension URLBarView: TabToolbarProtocol {
                 return [locationTextField, cancelButton]
             } else {
                 if toolbarIsShowing {
-                    return [backButton, forwardButton, locationView, tabsButton, libraryButton, menuButton, progressBar]
+                    return [backButton, forwardButton, locationView, lumosButton, tabsButton, libraryButton, menuButton, progressBar]
                 } else {
                     return [locationView, progressBar]
                 }

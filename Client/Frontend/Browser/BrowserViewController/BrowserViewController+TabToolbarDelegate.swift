@@ -183,5 +183,10 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
             self.present(backForwardViewController, animated: true, completion: nil)
         }
     }
+    
+    func tabToolbarDidPressLumos(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
+        #warning("To do")
+    }
+    
 }
 

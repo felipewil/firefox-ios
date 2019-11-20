@@ -1242,6 +1242,10 @@ extension BrowserViewController: URLBarDelegate {
         let controller = QRCodeNavigationController(rootViewController: qrCodeViewController)
         self.present(controller, animated: true, completion: nil)
     }
+    
+    func urlBarDidPressLumos(_ urlBar: URLBarView, from button: UIButton) {
+        #warning("To do")
+    }
 
     func urlBarDidPressPageOptions(_ urlBar: URLBarView, from button: UIButton) {
         guard let tab = tabManager.selectedTab, let urlString = tab.url?.absoluteString, !urlBar.inOverlayMode else { return }

@@ -9,6 +9,7 @@ import Shared
 protocol TabToolbarProtocol: AnyObject {
     var tabToolbarDelegate: TabToolbarDelegate? { get set }
     var tabsButton: TabsButton { get }
+    var lumosButton: ToolbarButton { get }
     var menuButton: ToolbarButton { get }
     var libraryButton: ToolbarButton { get }
     var forwardButton: ToolbarButton { get }
@@ -37,6 +38,7 @@ protocol TabToolbarDelegate: AnyObject {
     func tabToolbarDidPressLibrary(_ tabToolbar: TabToolbarProtocol, button: UIButton)
     func tabToolbarDidPressTabs(_ tabToolbar: TabToolbarProtocol, button: UIButton)
     func tabToolbarDidLongPressTabs(_ tabToolbar: TabToolbarProtocol, button: UIButton)
+    func tabToolbarDidPressLumos(_ tabToolbar: TabToolbarProtocol, button: UIButton)
 }
 
 @objcMembers
@@ -65,7 +67,12 @@ open class TabToolbarHelper: NSObject {
         let longPressGestureForwardButton = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressForward))
         toolbar.forwardButton.addGestureRecognizer(longPressGestureForwardButton)
         toolbar.forwardButton.addTarget(self, action: #selector(didClickForward), for: .touchUpInside)
-
+        
+        toolbar.lumosButton.setImage(UIImage(named: "lumosIcon"), for: .normal)
+        toolbar.lumosButton.accessibilityLabel = NSLocalizedString("Lumos Info", comment: "Accessibility Label for the tab toolbar Lumos button")
+        toolbar.lumosButton.addTarget(self, action: #selector(didClickLumosButton), for: .touchUpInside)
+        toolbar.lumosButton.accessibilityIdentifier = "TabToolbar.lumosButton"
+        
         toolbar.tabsButton.addTarget(self, action: #selector(didClickTabs), for: .touchUpInside)
         let longPressGestureTabsButton = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTabs))
         toolbar.tabsButton.addGestureRecognizer(longPressGestureTabsButton)
@@ -118,6 +125,10 @@ open class TabToolbarHelper: NSObject {
 
     func didClickLibrary() {
         toolbar.tabToolbarDelegate?.tabToolbarDidPressLibrary(toolbar, button: toolbar.menuButton)
+    }
+
+    func didClickLumosButton(_ button: UIButton) {
+        toolbar.tabToolbarDelegate?.tabToolbarDidPressLumos(toolbar, button: button)
     }
 
     func updateReloadStatus(_ isLoading: Bool) {
@@ -188,6 +199,7 @@ class TabToolbar: UIView {
     let libraryButton = ToolbarButton()
     let forwardButton = ToolbarButton()
     let backButton = ToolbarButton()
+    let lumosButton = ToolbarButton()
     let stopReloadButton = ToolbarButton()
     let actionButtons: [Themeable & UIButton]
 
@@ -198,7 +210,7 @@ class TabToolbar: UIView {
     private let contentView = UIStackView()
 
     fileprivate override init(frame: CGRect) {
-        actionButtons = [backButton, forwardButton, tabsButton, menuButton]
+        actionButtons = [backButton, forwardButton, lumosButton, tabsButton, menuButton]
         super.init(frame: frame)
         setupAccessibility()
 
@@ -227,7 +239,7 @@ class TabToolbar: UIView {
     private func setupAccessibility() {
         backButton.accessibilityIdentifier = "TabToolbar.backButton"
         forwardButton.accessibilityIdentifier = "TabToolbar.forwardButton"
-        stopReloadButton.accessibilityIdentifier = "TabToolbar.stopReloadButton"
+        lumosButton.accessibilityIdentifier = "TabToolbar.lumosButton"
         tabsButton.accessibilityIdentifier = "TabToolbar.tabsButton"
         menuButton.accessibilityIdentifier = "TabToolbar.menuButton"
         accessibilityNavigationStyle = .combined
@@ -279,7 +291,7 @@ extension TabToolbar: TabToolbarProtocol {
     }
 
     func updatePageStatus(_ isWebPage: Bool) {
-        // Do nothing
+        lumosButton.isEnabled = isWebPage
     }
 
     func updateTabCount(_ count: Int, animated: Bool) {
