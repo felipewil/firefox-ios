@@ -51,6 +51,8 @@ class BrowserViewController: UIViewController {
     fileprivate var searchLoader: SearchLoader?
     let alertStackView = UIStackView() // All content that appears above the footer should be added to this view. (Find In Page/SnackBars)
     var findInPageBar: FindInPageBar?
+    var modalHelper: ModalHelper!
+    var lumosContentView: LumosModalView?
 
     lazy var mailtoLinkHandler = MailtoLinkHandler()
 
@@ -451,6 +453,8 @@ class BrowserViewController: UIViewController {
                 }
             }
         }
+        
+        modalHelper = .defaultHelper()
     }
 
     fileprivate func setupConstraints() {
@@ -1244,7 +1248,17 @@ extension BrowserViewController: URLBarDelegate {
     }
     
     func urlBarDidPressLumos(_ urlBar: URLBarView, from button: UIButton) {
-        #warning("To do")
+        guard let url = tabManager.selectedTab?.url else { return }
+        
+        let lumosURL = LumosHelper.lumosURL(fromSourceURL: url.absoluteString,
+                                            forSidebar: .small)
+        lumosContentView = LumosModalView()
+        
+        guard let lumosContentView = lumosContentView else { return }
+        lumosContentView.load(urlString: lumosURL, completionHandler: nil)
+        _ = modalHelper.show(lumosContentView,
+                             from: button, in: urlBar,
+                             direction: .down)
     }
 
     func urlBarDidPressPageOptions(_ urlBar: URLBarView, from button: UIButton) {

@@ -14,6 +14,7 @@ github "mozilla-mobile/telemetry-ios"      ~> 1.1
 github "mozilla-mobile/MappaMundi"          "master"
 github "Leanplum/Leanplum-iOS-SDK"          ~> 2.6.0
 github "mozilla-services/shavar-prod-lists" "master"
+github "andreamazz/AMPopTip"
 
 # Use release version of application-services
 github "mozilla/application-services"      "v0.42.2"

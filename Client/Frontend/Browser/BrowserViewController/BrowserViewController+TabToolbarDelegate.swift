@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import Shared
+import AMPopTip
 
 extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     func tabToolbarDidPressBack(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
@@ -185,7 +186,17 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     }
     
     func tabToolbarDidPressLumos(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
-        #warning("To do")
+        guard let toolbar = toolbar else { return }
+        guard let url = tabManager.selectedTab?.url else { return }
+        
+        lumosContentView = LumosModalView()
+        
+        guard let lumosContentView = lumosContentView else { return }
+        let lumosURL = LumosHelper.lumosURL(fromSourceURL: url.absoluteString,
+                                            forSidebar: .small)
+        
+        lumosContentView.load(urlString: lumosURL, completionHandler: nil)
+        _ = modalHelper.show(lumosContentView, from: button, in: toolbar)
     }
     
 }

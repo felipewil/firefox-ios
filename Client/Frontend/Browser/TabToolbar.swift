@@ -68,7 +68,11 @@ open class TabToolbarHelper: NSObject {
         toolbar.forwardButton.addGestureRecognizer(longPressGestureForwardButton)
         toolbar.forwardButton.addTarget(self, action: #selector(didClickForward), for: .touchUpInside)
         
-        toolbar.lumosButton.setImage(UIImage(named: "lumosIcon"), for: .normal)
+        let lumosIcon = UIImage(named: "lumosIcon")
+        toolbar.lumosButton.setImage(lumosIcon, for: .normal)
+        toolbar.lumosButton.setImage(lumosIcon?.withAlpha(0.5), for: .highlighted)
+        toolbar.lumosButton.setImage(lumosIcon?.withAlpha(0.3), for: .disabled)
+        
         toolbar.lumosButton.accessibilityLabel = NSLocalizedString("Lumos Info", comment: "Accessibility Label for the tab toolbar Lumos button")
         toolbar.lumosButton.addTarget(self, action: #selector(didClickLumosButton), for: .touchUpInside)
         toolbar.lumosButton.accessibilityIdentifier = "TabToolbar.lumosButton"

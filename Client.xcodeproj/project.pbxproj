@@ -256,6 +256,13 @@
 		3D9CAA1C1EFCD655002434DD /* ClipBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CAA1B1EFCD655002434DD /* ClipBoardTests.swift */; };
 		3DEFED081F55EBE300F8620C /* TrackingProtectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFED071F55EBE300F8620C /* TrackingProtectionTests.swift */; };
 		4A59B58AD11B5EE1F80BBDEB /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BF410BBD9B3BE71F4C7C /* TestHistory.swift */; };
+		4B18FAF82386E0240064F308 /* ModalHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B18FAF72386E0240064F308 /* ModalHelper.swift */; };
+		4B18FB012386EC330064F308 /* LumosHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B18FB002386EC330064F308 /* LumosHelperTests.swift */; };
+		4B18FB032386EC420064F308 /* ModalHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B18FB022386EC420064F308 /* ModalHelperTests.swift */; };
+		4BFDE60C2386B1B40087C941 /* LumosModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDE60A2386B1B30087C941 /* LumosModalView.swift */; };
+		4BFDE60F2386B7570087C941 /* AMPopTip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BFDE60E2386B7570087C941 /* AMPopTip.framework */; };
+		4BFDE6102386B7570087C941 /* AMPopTip.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4BFDE60E2386B7570087C941 /* AMPopTip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BFDE6132386BE5E0087C941 /* LumosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDE6122386BE5E0087C941 /* LumosHelper.swift */; };
 		4F514FD41ACD8F2C0022D7EA /* HistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F514FD31ACD8F2C0022D7EA /* HistoryTests.swift */; };
 		4F97573B1AFA6F37006ECC24 /* readerContent.html in Resources */ = {isa = PBXBuildFile; fileRef = 4F9757391AFA6F37006ECC24 /* readerContent.html */; };
 		5002717C41BC7C50F67F1CAD /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50027345B49B967409DDA348 /* StateTests.swift */; };
@@ -1120,6 +1127,7 @@
 				E62CFB3D1C89EFF700C01324 /* FxA.framework in Copy Frameworks */,
 				E69DB08B1E97DEAA008A67E6 /* SyncTelemetry.framework in Copy Frameworks */,
 				E60138681C89EB8800DF9756 /* Sync.framework in Copy Frameworks */,
+				4BFDE6102386B7570087C941 /* AMPopTip.framework in Copy Frameworks */,
 				E60138671C89EB8300DF9756 /* Account.framework in Copy Frameworks */,
 				E60138661C89EB7D00DF9756 /* Storage.framework in Copy Frameworks */,
 				E60138651C89EB7600DF9756 /* Shared.framework in Copy Frameworks */,
@@ -1388,6 +1396,12 @@
 		3D9CAA1B1EFCD655002434DD /* ClipBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClipBoardTests.swift; sourceTree = "<group>"; };
 		3DEFED071F55EBE300F8620C /* TrackingProtectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProtectionTests.swift; sourceTree = "<group>"; };
 		4A59BF410BBD9B3BE71F4C7C /* TestHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
+		4B18FAF72386E0240064F308 /* ModalHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHelper.swift; sourceTree = "<group>"; };
+		4B18FB002386EC330064F308 /* LumosHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumosHelperTests.swift; sourceTree = "<group>"; };
+		4B18FB022386EC420064F308 /* ModalHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHelperTests.swift; sourceTree = "<group>"; };
+		4BFDE60A2386B1B30087C941 /* LumosModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LumosModalView.swift; sourceTree = "<group>"; };
+		4BFDE60E2386B7570087C941 /* AMPopTip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMPopTip.framework; path = Carthage/Build/iOS/AMPopTip.framework; sourceTree = "<group>"; };
+		4BFDE6122386BE5E0087C941 /* LumosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumosHelper.swift; sourceTree = "<group>"; };
 		4F514FD31ACD8F2C0022D7EA /* HistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTests.swift; sourceTree = "<group>"; };
 		4F9757391AFA6F37006ECC24 /* readerContent.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = readerContent.html; sourceTree = "<group>"; };
 		50027345B49B967409DDA348 /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StateTests.swift; path = SyncTests/StateTests.swift; sourceTree = "<group>"; };
@@ -1913,6 +1927,7 @@
 				EBCF403B221CBC5B00B38F28 /* SwiftProtobuf.framework in Frameworks */,
 				E6231C011B90A44F005ABB0D /* libz.tbd in Frameworks */,
 				E4A888161A95679500CDC337 /* FxA.framework in Frameworks */,
+				4BFDE60F2386B7570087C941 /* AMPopTip.framework in Frameworks */,
 				2FA436121ABB83B4008031D1 /* Account.framework in Frameworks */,
 				288A2D9D1AB8B3260023ABC3 /* Shared.framework in Frameworks */,
 				2FCAE2311ABB51F800877008 /* Storage.framework in Frameworks */,
@@ -2605,6 +2620,7 @@
 		7B604FC11C496005006EEEC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4BFDE60E2386B7570087C941 /* AMPopTip.framework */,
 				D05434BF2257DE9900FDE4EF /* Leanplum.framework */,
 				C8E18F1F222EDED000E30E52 /* SafariServices.framework */,
 				C8E18F1D222EDE4400E30E52 /* Accelerate.framework */,
@@ -2881,6 +2897,7 @@
 			isa = PBXGroup;
 			children = (
 				D38F02D01C05127100175932 /* Authenticator.swift */,
+				4BFDE60A2386B1B30087C941 /* LumosModalView.swift */,
 				C40046F91CF8E0B200B08303 /* BackForwardListAnimator.swift */,
 				C400467B1CF4E43E00B08303 /* BackForwardListViewController.swift */,
 				C4EFEECE1CEBB6F2009762A4 /* BackForwardTableViewCell.swift */,
@@ -2905,6 +2922,8 @@
 				39DD030C1CD53E1900BC09B3 /* HomePageHelper.swift */,
 				D3C3696D1CC6B78800348A61 /* LocalRequestHelper.swift */,
 				0BB5B30A1AC0AD1F0052877D /* LoginsHelper.swift */,
+				4BFDE6122386BE5E0087C941 /* LumosHelper.swift */,
+				4B18FAF72386E0240064F308 /* ModalHelper.swift */,
 				7482205B1DBAB56300EEEA72 /* MailProviders.swift */,
 				744ED5601DBFEB8D00A2B5BE /* MailtoLinkHandler.swift */,
 				D0C95E35200FDC5400E4E51C /* MetadataParserHelper.swift */,
@@ -3390,8 +3409,10 @@
 				3B39EDB91E16E18900EF029F /* CustomSearchEnginesTest.swift */,
 				D3D488581ABB54CD00A93597 /* FileAccessorTests.swift */,
 				3943A81C1E9807C700D4F6DC /* FxAPushMessageTest.swift */,
+				4B18FB002386EC330064F308 /* LumosHelperTests.swift */,
 				281B2BE91ADF4D90002917DC /* MockProfile.swift */,
 				E683F0A51E92E0820035D990 /* MockableHistory.swift */,
+				4B18FB022386EC420064F308 /* ModalHelperTests.swift */,
 				3B61CD581F2A750800D38DE1 /* PocketFeedTests.swift */,
 				2FDB10921A9FBEC5006CF312 /* PrefsTests.swift */,
 				0BA896491A250E6500C1010C /* ProfileTest.swift */,
@@ -4964,6 +4985,7 @@
 				EBB895332193FFF400EB91A0 /* ContentBlockerSettingViewController.swift in Sources */,
 				E692E3371C46E86A009D1240 /* AppSettingsOptions.swift in Sources */,
 				D38F02D11C05127100175932 /* Authenticator.swift in Sources */,
+				4BFDE6132386BE5E0087C941 /* LumosHelper.swift in Sources */,
 				E68E7ADC1CAC208200FDCA76 /* SetupPasscodeViewController.swift in Sources */,
 				3B61CD491F2A74EF00D38DE1 /* PocketFeed.swift in Sources */,
 				396E38F11EE0C8EC00CC180F /* FxAPushMessageHandler.swift in Sources */,
@@ -5014,6 +5036,7 @@
 				CEFA977E1FAA6B490016F365 /* SyncContentSettingsViewController.swift in Sources */,
 				E60D03181D511398002FE3F6 /* SyncStatusResolver.swift in Sources */,
 				E689C6FA1E0C6E98008BAADB /* FxAContentViewController.swift in Sources */,
+				4B18FAF82386E0240064F308 /* ModalHelper.swift in Sources */,
 				C4E3983D1D21F1E7004E89BA /* TopTabsViews.swift in Sources */,
 				FA9293D41D6580E100AC8D33 /* QRCodeViewController.swift in Sources */,
 				E6108FF91C84E91C005D25E8 /* BasePasscodeViewController.swift in Sources */,
@@ -5168,6 +5191,7 @@
 				E692E3291C46E62D009D1240 /* AuthenticationSettingsViewController.swift in Sources */,
 				E663D5781BB341C4001EF30E /* ToggleButton.swift in Sources */,
 				EBA3B2D22268F57E00728BDB /* BadgeIcon.swift in Sources */,
+				4BFDE60C2386B1B40087C941 /* LumosModalView.swift in Sources */,
 				E6327A641BF6438E008D12E0 /* DebugSettingsBundleOptions.swift in Sources */,
 				D8FDEB57220CFE970069A582 /* UIImage+ImageEffects.m in Sources */,
 				EBB89506219398E500EB91A0 /* TabContentBlocker.swift in Sources */,
@@ -5198,6 +5222,7 @@
 				D3FA777B1A43B2990010CD32 /* SearchTests.swift in Sources */,
 				D3BA41681BD82F2200DA5457 /* XCTestCaseExtensions.swift in Sources */,
 				554867231DC3935A00183DAA /* HomePageTests.swift in Sources */,
+				4B18FB012386EC330064F308 /* LumosHelperTests.swift in Sources */,
 				DACDE996225E537900C8F37F /* VersionSettingTests.swift in Sources */,
 				3BFCBF201E04B1C50070C042 /* UIImageViewExtensionsTests.swift in Sources */,
 				8DCD3BCD1ED5B7FA00446D38 /* FxADeepLinkingTests.swift in Sources */,
@@ -5216,6 +5241,7 @@
 				63306D452110BAF000F25400 /* TabManagerStoreTests.swift in Sources */,
 				4A59B58AD11B5EE1F80BBDEB /* TestHistory.swift in Sources */,
 				A83E5B1D1C1DA8D80026D912 /* UIPasteboardExtensionsTests.swift in Sources */,
+				4B18FB032386EC420064F308 /* ModalHelperTests.swift in Sources */,
 				28D52E2F1BCDF53900187A1D /* ResetTests.swift in Sources */,
 				E1D8BC7A21FF7A0000B100BD /* TPStatsBlocklistsTests.swift in Sources */,
 				D82ED2641FEB3C420059570B /* DefaultSearchPrefsTests.swift in Sources */,
