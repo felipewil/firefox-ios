@@ -43,8 +43,10 @@ if [ "$1" == "--importLocales" ]; then
   exit 0
 fi
 
-# Run carthage
-./carthage_command.sh
+if [[ -z "${BITRISE_IO}" ]]; then
+  # Run carthage
+  ./carthage_command.sh
+fi
 
 # Move Glean script to source folder from MozillaAppServices.framework
 # as we don't want to ship our app with this Glean script inside framework
