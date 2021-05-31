@@ -9075,7 +9075,6 @@
 		7B2142FC1E5E055000CDD3FC /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7B2142FD1E5E055000CDD3FC /* en */,
 				D15D49D4942687A9EAFE3AC5 /* de */,
 				0BD24470A8F71A8CE50A55E0 /* ur */,
 				D1504B5491C90F2173E13F4D /* he */,
@@ -10582,7 +10581,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = WidgetKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec.WidgetKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
@@ -10593,7 +10592,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Extensions/Entitlements/FennecEnterprise.entitlements;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				PINFOPLIST_FILE = WidgetKit/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).WidgetKit";
 				SKIP_INSTALL = NO;
@@ -10608,7 +10607,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = WidgetKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozilla.ios.Felipe.WidgetKit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
@@ -10620,7 +10619,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Extensions/Entitlements/FirefoxBeta.entitlements;
 				INFOPLIST_FILE = WidgetKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).WidgetKit";
 				PROVISIONING_PROFILE_SPECIFIER = "BR FirefoxBeta WidgetKit";
 				SKIP_INSTALL = NO;
