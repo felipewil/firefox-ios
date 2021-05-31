@@ -420,7 +420,6 @@
 		C8399D9522DE5E6200EFA5CA /* disconnect-block-social.json in Resources */ = {isa = PBXBuildFile; fileRef = C8399D9422DE5E6200EFA5CA /* disconnect-block-social.json */; };
 		C8417D222657F0600010B877 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8417D212657F0600010B877 /* LibraryViewModel.swift */; };
 		C8445A14264428DC00B83F53 /* LibraryPanelViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8445A13264428DC00B83F53 /* LibraryPanelViewState.swift */; };
-		C8445AD126443C7F00B83F53 /* LibraryPanelViewStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8445AD026443C7F00B83F53 /* LibraryPanelViewStateTests.swift */; };
 		C8611C8E1F71904C00C3DE7D /* DiskImageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BF8CBC1B7472FA0007AFE6 /* DiskImageStoreTests.swift */; };
 		C8611CB01F71AEBA00C3DE7D /* NoImageModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8611CA11F71AEB900C3DE7D /* NoImageModeTests.swift */; };
 		C86E4F712493BA8E0087BFD9 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86E4F702493BA8E0087BFD9 /* Metrics.swift */; };
@@ -2987,7 +2986,6 @@
 		C8399D9422DE5E6200EFA5CA /* disconnect-block-social.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "disconnect-block-social.json"; sourceTree = "<group>"; };
 		C8417D212657F0600010B877 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		C8445A13264428DC00B83F53 /* LibraryPanelViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPanelViewState.swift; sourceTree = "<group>"; };
-		C8445AD026443C7F00B83F53 /* LibraryPanelViewStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPanelViewStateTests.swift; sourceTree = "<group>"; };
 		C8464093BC0470D518B16C72 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/3DTouchActions.strings; sourceTree = "<group>"; };
 		C8611CA11F71AEB900C3DE7D /* NoImageModeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoImageModeTests.swift; sourceTree = "<group>"; };
 		C86E4F702493BA8E0087BFD9 /* Metrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
@@ -5436,6 +5434,7 @@
 		DA9FD87B24E212F500168D1E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				C8445A13264428DC00B83F53 /* LibraryPanelViewState.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -9547,7 +9546,6 @@
 				D51D7600261FC9EF00EEE7B6 /* bn */,
 				D5311CB4261FC9F500A2FC94 /* ast */,
 				D5E16120261FCA2200F02D6E /* eo */,
-				D5E79E96263C729200D1E356 /* te */,
 				43EB00C2265861E8009A5F61 /* az */,
 			);
 			name = "Default Browser.strings";
@@ -10413,11 +10411,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Fennec.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = Extensions/Today/Info.plist;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_FENNEC -DMOZ_TARGET_TODAY";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).$(PRODUCT_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec.Today;
 				PRODUCT_NAME = Today;
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec Today Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 			};
 			name = Fennec;
@@ -10467,10 +10468,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Fennec.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = Extensions/NotificationService/Info.plist;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_FENNEC -DMOZ_TARGET_NOTIFICATIONSERVICE";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).$(PRODUCT_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec NotificationService Development";
+				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec.NotificationService;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 			};
 			name = Fennec;
@@ -10569,10 +10573,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Extensions/Entitlements/Fennec.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = WidgetKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).WidgetKit";
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec WidgetKit Development";
+				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec.WidgetKit;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 			};
 			name = Fennec;
@@ -11304,15 +11311,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Developer;
-				DEVELOPMENT_TEAM = 43AQ936H96;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec;
 				PRODUCT_MODULE_NAME = Client;
 				PRODUCT_NAME = Client;
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BUDDYBUILD;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Client/Client-Bridging-Header.h";
@@ -11334,10 +11343,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "$(inherit)Extensions/Entitlements/Fennec.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6J86C6MHA9;
 				INFOPLIST_FILE = Extensions/ShareTo/Info.plist;
 				OTHER_SWIFT_FLAGS = "-DMOZ_CHANNEL_FENNEC -DMOZ_TARGET_SHARETO";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MOZ_BUNDLE_ID).$(PRODUCT_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Fennec ShareTo Development";
+				PRODUCT_BUNDLE_IDENTIFIER = org.felipe.ios.Fennec.ShareTo;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 			};
 			name = Fennec;
